@@ -39,3 +39,17 @@ docker compose start
 Данные Confluence и PostgreSQL сохраняются в Docker-томах и не входят в репозиторий. Перед переносом сделайте резервные копии базы и тома Confluence. В конфигурации порт Confluence доступен только на локальном компьютере.
 
 Используется сторонний образ haxqer с Java-агентом. Для работы требуется подходящая лицензия Atlassian. Инструкция адаптирована из [haxqer/confluence на Docker Hub](https://hub.docker.com/r/haxqer/confluence) под PostgreSQL и конфигурацию этого репозитория. Другие версии образа доступны в [списке тегов](https://hub.docker.com/r/haxqer/confluence/tags).
+
+## Команда агента для лицензии
+
+Команда из инструкции автора запускает сторонний агент для генерации лицензии. Замените контактные данные, адрес организации и `ТВОЙ_SERVER_ID` на Server ID вашего Confluence:
+
+```sh
+docker compose exec confluence java -jar /var/agent/atlassian-agent.jar \
+  -p conf \
+  -m haxqer666@gmail.com -n haxqer666@gmail.com \
+  -o http://website \
+  -s ТВОЙ_SERVER_ID
+```
+
+Server ID Jira и Confluence могут различаться: используйте идентификатор именно этой установки.
